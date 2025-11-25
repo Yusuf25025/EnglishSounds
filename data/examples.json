@@ -1,0 +1,118 @@
+{
+  "/p/": [
+    { "word": "pen", "pattern": "p" },
+    { "word": "top", "pattern": "p" },
+    { "word": "supper", "pattern": "pp" }
+  ],
+  "/t/": [
+    { "word": "Ten", "pattern": "T" },
+    { "word": "cut", "pattern": "t" },
+    { "word": "letter", "pattern": "tt" }
+  ],
+  "/k/": [
+    { "word": "kind", "pattern": "k" },
+    { "word": "inquire", "pattern": "qu" },
+    { "word": "come", "pattern": "c" },
+    { "word": "fix", "pattern": "x" },
+    { "word": "pick", "pattern": "ck" }
+  ],
+  "/θ/": [
+    { "word": "three", "pattern": "th" },
+    { "word": "think", "pattern": "th" },
+    { "word": "breath", "pattern": "th" },
+    { "word": "cloth", "pattern": "th" }
+  ],
+  "/f/": [
+    { "word": "friend", "pattern": "fr" },
+    { "word": "life", "pattern": "f" },
+    { "word": "death", "pattern": "th" },
+    { "word": "enough", "pattern": "gh" },
+    { "word": "laugh", "pattern": "gh" },
+    { "word": "tough", "pattern": "gh" }
+  ],
+  "/s/": [
+    { "word": "sir", "pattern": "s" },
+    { "word": "site", "pattern": "s" },
+    { "word": "boss", "pattern": "ss" },
+    { "word": "glass", "pattern": "ss" },
+    { "word": "sites", "pattern": "s" },
+    { "word": "lakes", "pattern": "s" },
+    { "word": "city", "pattern": "c" },
+    { "word": "fix", "pattern": "x" }
+  ],
+  "/ʃ/": [
+    { "word": "ancient", "pattern": "ci" },
+    { "word": "partial", "pattern": "ti" },
+    { "word": "action", "pattern": "ti" },
+    { "word": "schedule", "pattern": "sch" },
+    { "word": "sugar", "pattern": "s" },
+    { "word": "sure", "pattern": "s" },
+    { "word": "machine", "pattern": "ch" }
+  ],
+  "/tʃ/": [
+    { "word": "rich", "pattern": "ch" },
+    { "word": "reach", "pattern": "ch" },
+    { "word": "future", "pattern": "ture" }
+  ],
+  "/h/": [
+    { "word": "while", "pattern": "wh" },
+    { "word": "white", "pattern": "wh" },
+    { "word": "honor", "pattern": "h" },
+    { "word": "honest", "pattern": "h" },
+    { "word": "borough", "pattern": "h" },
+    { "word": "through", "pattern": "h" }
+  ],
+
+  "/b/": [
+    { "word": "climb", "pattern": "b" },
+    { "word": "bomb", "pattern": "b" },
+    { "word": "comb", "pattern": "b" },
+    { "word": "bed", "pattern": "b" },
+    { "word": "lamv", "pattern": "v" }
+  ],
+  "/d/": [
+    { "word": "do", "pattern": "d" },
+    { "word": "double", "pattern": "d" },
+    { "word": "hand", "pattern": "d" },
+    { "word": "riddle", "pattern": "dd" }
+  ],
+  "/g/": [
+    { "word": "go", "pattern": "g" },
+    { "word": "game", "pattern": "g" },
+    { "word": "bigger", "pattern": "gg" },
+    { "word": "foggy", "pattern": "gg" },
+    { "word": "hungry", "pattern": "gr" },
+    { "word": "sing", "pattern": "ng" }
+  ],
+  "/ð/": [
+    { "word": "breathe", "pattern": "th" },
+    { "word": "bathe", "pattern": "th" },
+    { "word": "though", "pattern": "th" },
+    { "word": "wether", "pattern": "th" }
+  ],
+  "/v/": [
+    { "word": "very", "pattern": "v" },
+    { "word": "view", "pattern": "v" },
+    { "word": "every", "pattern": "v" },
+    { "word": "move", "pattern": "v" }
+  ],
+  "/z/": [
+    { "word": "quiz", "pattern": "z" },
+    { "word": "rise", "pattern": "s" },
+    { "word": "muesum", "pattern": "s" },
+    { "word": "please", "pattern": "s" },
+    { "word": "resource", "pattern": "s" }
+  ],
+  "/ʒ/": [
+    { "word": "massage", "pattern": "ge" },
+    { "word": "regime", "pattern": "g" },
+    { "word": "garage", "pattern": "ge" },
+    { "word": "genre", "pattern": "re" }
+  ],
+  "/dʒ/": [
+    { "word": "join", "pattern": "j" },
+    { "word": "enjoy", "pattern": "j" },
+    { "word": "educate", "pattern": "du" },
+    { "word": "graduate", "pattern": "du" }
+  ]
+}
