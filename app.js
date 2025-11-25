@@ -1,7 +1,8 @@
-// ====== PHONEME DEFINITIONS ======
-// Only symbols & type live here. Words come from data/examples.json.
+// ===== PHONEME DEFINITIONS =====
+// type: "voiceless", "voiced", "vowel" (diphthong later)
 
 const PHONEMES = [
+  // voiceless consonants
   { symbol: "/p/", key: "p", type: "voiceless" },
   { symbol: "/t/", key: "t", type: "voiceless" },
   { symbol: "/k/", key: "k", type: "voiceless" },
@@ -12,6 +13,7 @@ const PHONEMES = [
   { symbol: "/tʃ/", key: "tch", type: "voiceless" },
   { symbol: "/h/", key: "h", type: "voiceless" },
 
+  // voiced consonants
   { symbol: "/b/", key: "b", type: "voiced" },
   { symbol: "/d/", key: "d", type: "voiced" },
   { symbol: "/g/", key: "g", type: "voiced" },
@@ -19,15 +21,36 @@ const PHONEMES = [
   { symbol: "/v/", key: "v", type: "voiced" },
   { symbol: "/z/", key: "z", type: "voiced" },
   { symbol: "/ʒ/", key: "zh", type: "voiced" },
-  { symbol: "/dʒ/", key: "dge", type: "voiced" }
+  { symbol: "/dʒ/", key: "dge", type: "voiced" },
+  { symbol: "/l/", key: "l", type: "voiced" },
+  { symbol: "/r/", key: "r", type: "voiced" },
+  { symbol: "/m/", key: "m", type: "voiced" },
+  { symbol: "/n/", key: "n", type: "voiced" },
+  { symbol: "/ŋ/", key: "ng", type: "voiced" },
+  { symbol: "/j/", key: "j", type: "voiced" },
+  { symbol: "/w/", key: "w", type: "voiced" },
 
-  // When you send the rest of the symbols,
-  // we just add more objects here.
+  // vowels (pure)
+  { symbol: "/I/", key: "I", type: "vowel" },
+  { symbol: "/i/", key: "i_short", type: "vowel" },
+  { symbol: "/i:/", key: "i_long", type: "vowel" },
+  { symbol: "/e/", key: "e", type: "vowel" },
+  { symbol: "/3:/", key: "3_long", type: "vowel" },
+  { symbol: "/æ/", key: "ae", type: "vowel" },
+  { symbol: "/a:/", key: "a_long", type: "vowel" },
+  { symbol: "/ɒ/", key: "o_short", type: "vowel" },
+  { symbol: "/ɔː/", key: "o_long", type: "vowel" },
+  { symbol: "/ʊ/", key: "u_short", type: "vowel" },
+  { symbol: "/ʌ/", key: "uh", type: "vowel" },
+  { symbol: "/ə/", key: "schwa", type: "vowel" }
+
+  // Diphthongs: we’ll add later with type "diphthong"
 ];
 
 let examplesBySymbol = {}; // loaded from JSON
+let dataLoaded = false;
 
-// ====== Helpers ======
+// ===== Helpers =====
 
 function highlightWord(word, pattern) {
   if (!pattern) return word;
@@ -53,7 +76,7 @@ function isSymbolQuery(q) {
   return false;
 }
 
-// ====== DOM refs ======
+// ===== DOM =====
 
 const resultsEl = document.getElementById("results");
 const wordLookupEl = document.getElementById("wordLookup");
@@ -61,12 +84,17 @@ const searchInput = document.getElementById("searchInput");
 const filterChips = document.querySelectorAll(".chip");
 
 let activeFilter = "all";
-let dataLoaded = false;
 
-// ====== Rendering ======
+// ===== Rendering =====
 
 function getExamplesFor(symbol) {
   return examplesBySymbol[symbol] || [];
+}
+
+function labelForType(type) {
+  if (type === "vowel") return "vowel";
+  if (type === "diphthong") return "diphthong";
+  return `${type} consonant`; // voiced / voiceless consonant
 }
 
 function renderPhonemes() {
@@ -116,7 +144,7 @@ function renderPhonemes() {
               <div>
                 <div class="symbol">${ph.symbol}</div>
                 <div class="symbol-type ${ph.type}">
-                  ${ph.type} consonant
+                  ${labelForType(ph.type)}
                 </div>
               </div>
               <button class="audio-btn" data-symbol="${ph.key}">
@@ -191,12 +219,13 @@ function renderWordLookupSummary(q, visiblePhonemes) {
   `;
 }
 
-// ====== Audio handling ======
+// ===== Audio =====
 
 let currentAudio = null;
 
 function symbolToAudioPath(symbolKey) {
-  // Map key -> audio file path
+  // your recordings go here:
+  // audio/symbols/p.mp3, audio/symbols/I.mp3, audio/symbols/i_long.mp3, etc.
   return `audio/symbols/${symbolKey}.mp3`;
 }
 
@@ -221,7 +250,7 @@ function attachAudioHandlers() {
   });
 }
 
-// ====== Data loading ======
+// ===== Data loading =====
 
 async function loadExamples() {
   try {
@@ -239,7 +268,7 @@ async function loadExamples() {
   }
 }
 
-// ====== Events ======
+// ===== Events =====
 
 searchInput.addEventListener("input", () => {
   renderPhonemes();
@@ -254,6 +283,6 @@ filterChips.forEach((chip) => {
   });
 });
 
-// First render (loading state) then load JSON
+// initial
 renderPhonemes();
 loadExamples();
