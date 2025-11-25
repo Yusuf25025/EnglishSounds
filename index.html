@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wizari Phonetics 12</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="brand">
+      <span class="logo-circle">ʃ</span>
+      <div class="brand-text">
+        <h1>Wizari Phonetics 12</h1>
+        <p>Interactive reference for Sunrise 12 sounds</p>
+      </div>
+    </div>
+
+    <div class="search-wrapper">
+      <label for="searchInput">Search</label>
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Try: /ʃ/ , tʃ , pen , climb , future..."
+        autocomplete="off"
+      />
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="filters">
+      <button class="chip chip-active" data-filter="all">All</button>
+      <button class="chip" data-filter="voiceless">Voiceless consonants</button>
+      <button class="chip" data-filter="voiced">Voiced consonants</button>
+    </section>
+
+    <section id="wordLookup" class="word-lookup"></section>
+
+    <section id="results" class="results-grid">
+      <!-- JS will inject phoneme cards here -->
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Built for Wizari students • Hosted on GitHub Pages • Recordings by
+      <span class="yusuf">Yusuf</span>
+    </p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
