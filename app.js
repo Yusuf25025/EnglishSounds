@@ -44,7 +44,7 @@ const PHONEMES = [
   { symbol: "/ʌ/", key: "uh", type: "vowel" },
   { symbol: "/ə/", key: "schwa", type: "vowel" }
 
-  // Diphthongs: we’ll add later with type "diphthong"
+  // Diphthongs later: type "diphthong"
 ];
 
 let examplesBySymbol = {}; // loaded from JSON
@@ -147,7 +147,7 @@ function renderPhonemes() {
                   ${labelForType(ph.type)}
                 </div>
               </div>
-              <button class="audio-btn" data-symbol="${ph.key}">
+              <button class="audio-btn" type="button" data-symbol="${ph.key}">
                 <span class="icon">🔊</span>
                 <span>Sound</span>
               </button>
@@ -170,8 +170,9 @@ function renderPhonemes() {
   }
 
   renderWordLookupSummary(q, filtered);
-  attachAudioHandlers();
 }
+
+// ===== Word lookup summary =====
 
 function renderWordLookupSummary(q, visiblePhonemes) {
   const query = normalizeQuery(q);
@@ -224,31 +225,28 @@ function renderWordLookupSummary(q, visiblePhonemes) {
 let currentAudio = null;
 
 function symbolToAudioPath(symbolKey) {
-  // your recordings go here:
-  // audio/symbols/p.mp3, audio/symbols/I.mp3, audio/symbols/i_long.mp3, etc.
   return `audio/symbols/${symbolKey}.mp3`;
 }
 
-function attachAudioHandlers() {
-  const buttons = document.querySelectorAll(".audio-btn");
-  buttons.forEach((btn) => {
-    btn.onclick = () => {
-      const key = btn.getAttribute("data-symbol");
-      const src = symbolToAudioPath(key);
+// 🔥 NEW: event delegation — one listener for all current + future buttons
+resultsEl.addEventListener("click", (event) => {
+  const btn = event.target.closest(".audio-btn");
+  if (!btn) return;
 
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
+  const key = btn.getAttribute("data-symbol");
+  const src = symbolToAudioPath(key);
 
-      const audio = new Audio(src);
-      currentAudio = audio;
-      audio.play().catch(() => {
-        alert("No recording yet for this sound. Add it at: " + src);
-      });
-    };
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+
+  const audio = new Audio(src);
+  currentAudio = audio;
+  audio.play().catch(() => {
+    alert("No recording yet for this sound. Add it at: " + src);
   });
-}
+});
 
 // ===== Data loading =====
 
