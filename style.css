@@ -359,11 +359,12 @@ body {
 
   .results-grid {
     grid-template-columns: 1fr;
+
+
+  }
+}
     /* Force pointer on all buttons, just in case */
 button,
 .audio-btn {
   cursor: pointer !important;
-}
-
-  }
 }
