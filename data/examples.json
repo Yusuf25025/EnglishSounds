@@ -114,5 +114,116 @@
     { "word": "enjoy", "pattern": "j" },
     { "word": "educate", "pattern": "du" },
     { "word": "graduate", "pattern": "du" }
+  ],
+
+  "/l/": [
+    { "word": "almost", "pattern": "l" },
+    { "word": "shoulder", "pattern": "ld" }
+  ],
+  "/r/": [
+    { "word": "ran", "pattern": "r" },
+    { "word": "red", "pattern": "r" },
+    { "word": "bring", "pattern": "r" },
+    { "word": "road", "pattern": "r" }
+  ],
+  "/m/": [
+    { "word": "mine", "pattern": "m" },
+    { "word": "number", "pattern": "m" },
+    { "word": "dam", "pattern": "m" }
+  ],
+  "/n/": [
+    { "word": "name", "pattern": "n" },
+    { "word": "run", "pattern": "n" },
+    { "word": "manner", "pattern": "nn" }
+  ],
+  "/ŋ/": [
+    { "word": "sing", "pattern": "ng" },
+    { "word": "ring", "pattern": "ng" },
+    { "word": "young", "pattern": "ng" }
+  ],
+  "/j/": [
+    { "word": "yes", "pattern": "y" },
+    { "word": "youth", "pattern": "y" },
+    { "word": "yawn", "pattern": "y" }
+  ],
+  "/w/": [
+    { "word": "we", "pattern": "w" },
+    { "word": "wet", "pattern": "w" },
+    { "word": "quit", "pattern": "qu" },
+    { "word": "unite", "pattern": "u" }
+  ],
+
+  "/I/": [
+    { "word": "citadel", "pattern": "i" },
+    { "word": "sit", "pattern": "i" },
+    { "word": "bit", "pattern": "i" },
+    { "word": "England", "pattern": "E" }
+  ],
+  "/i/": [
+    { "word": "lucky", "pattern": "y" },
+    { "word": "busy", "pattern": "y" },
+    { "word": "easy", "pattern": "sy" }
+  ],
+  "/i:/": [
+    { "word": "bee", "pattern": "ee" },
+    { "word": "agree", "pattern": "ee" },
+    { "word": "meat", "pattern": "ea" },
+    { "word": "see", "pattern": "ee" }
+  ],
+  "/e/": [
+    { "word": "end", "pattern": "e" },
+    { "word": "edge", "pattern": "e" },
+    { "word": "enter", "pattern": "e" },
+    { "word": "energy", "pattern": "e" }
+  ],
+  "/3:/": [
+    { "word": "dirty", "pattern": "ir" },
+    { "word": "first", "pattern": "ir" },
+    { "word": "thirsty", "pattern": "ir" },
+    { "word": "perfume", "pattern": "er" }
+  ],
+  "/æ/": [
+    { "word": "at", "pattern": "a" },
+    { "word": "am", "pattern": "a" },
+    { "word": "had", "pattern": "a" },
+    { "word": "bat", "pattern": "a" },
+    { "word": "fat", "pattern": "a" },
+    { "word": "mad", "pattern": "a" }
+  ],
+  "/a:/": [
+    { "word": "art", "pattern": "ar" },
+    { "word": "arm", "pattern": "ar" },
+    { "word": "past", "pattern": "a" },
+    { "word": "father", "pattern": "a" }
+  ],
+  "/ɒ/": [
+    { "word": "port", "pattern": "or" },
+    { "word": "short", "pattern": "or" },
+    { "word": "mall", "pattern": "all" },
+    { "word": "wall", "pattern": "all" }
+  ],
+  "/ɔː/": [
+    { "word": "floor", "pattern": "oor" },
+    { "word": "sure", "pattern": "ure" },
+    { "word": "war", "pattern": "ar" },
+    { "word": "caught", "pattern": "augh" }
+  ],
+  "/ʊ/": [
+    { "word": "full", "pattern": "u" },
+    { "word": "blew", "pattern": "ew" },
+    { "word": "room", "pattern": "oo" },
+    { "word": "zoom", "pattern": "oo" }
+  ],
+  "/ʌ/": [
+    { "word": "but", "pattern": "u" },
+    { "word": "cut", "pattern": "u" },
+    { "word": "rough", "pattern": "ou" },
+    { "word": "southern", "pattern": "ou" }
+  ],
+  "/ə/": [
+    { "word": "across", "pattern": "a" },
+    { "word": "afraid", "pattern": "a" },
+    { "word": "about", "pattern": "a" },
+    { "word": "around", "pattern": "a" }
   ]
 }
