@@ -263,6 +263,15 @@ body {
   color: #bbf7d0;
 }
 
+/* ==== Audio button ==== */
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
 .audio-btn {
   border-radius: 999px;
   border: 1px solid rgba(55, 65, 81, 0.9);
@@ -274,19 +283,28 @@ body {
   align-items: center;
   gap: 0.3rem;
   cursor: pointer;
+  user-select: none;
   transition: background-color 0.12s ease, transform 0.12s ease,
     box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
-.audio-btn:hover {
+.audio-btn:hover,
+.audio-btn:focus-visible {
   background: rgba(8, 47, 73, 0.9);
   border-color: var(--accent);
   box-shadow: 0 0 15px rgba(34, 211, 238, 0.35);
   transform: translateY(-1px);
+  outline: none;
 }
 
 .audio-btn span.icon {
   font-size: 0.95rem;
+}
+
+/* Make sure cursor is pointer on whole pill */
+.audio-btn,
+.audio-btn * {
+  cursor: pointer;
 }
 
 /* Example list */
@@ -359,12 +377,5 @@ body {
 
   .results-grid {
     grid-template-columns: 1fr;
-
-
   }
-}
-    /* Force pointer on all buttons, just in case */
-button,
-.audio-btn {
-  cursor: pointer !important;
 }
