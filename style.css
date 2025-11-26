@@ -306,7 +306,14 @@ button {
 .audio-btn * {
   cursor: pointer;
 }
-
+.audio-btn.audio-btn-disabled,
+.audio-btn.audio-btn-disabled * {
+  color: #94a3b8;
+  border-color: rgba(71, 85, 105, 0.8);
+  background: rgba(15, 23, 42, 0.6);
+  cursor: not-allowed;
+  box-shadow: none;
+}
 /* Example list */
 
 .examples-title {
