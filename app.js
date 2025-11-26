@@ -1,10 +1,9 @@
-// Wizari Phonetics 12 – full JS reset
+// Wizari Phonetics 12 – full JS
 
 window.addEventListener("DOMContentLoaded", () => {
   console.log("🔥 Wizari Phonetics JS booted");
 
   // ===== PHONEME DEFINITIONS =====
-  // type: "voiceless", "voiced", "vowel" (diphthong later)
 
   const PHONEMES = [
     // voiceless consonants
@@ -48,11 +47,9 @@ window.addEventListener("DOMContentLoaded", () => {
     { symbol: "/ʊ/", key: "u_short", type: "vowel" },
     { symbol: "/ʌ/", key: "uh", type: "vowel" },
     { symbol: "/ə/", key: "schwa", type: "vowel" }
-
-    // Diphthongs later with type: "diphthong"
   ];
 
-  let examplesBySymbol = {}; // loaded from JSON
+  let examplesBySymbol = {};
   let dataLoaded = false;
   let currentAudio = null;
   let activeFilter = "all";
@@ -232,15 +229,16 @@ window.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // ===== Audio click handling (event delegation) =====
+  // ===== GLOBAL CLICK HANDLER FOR AUDIO =====
 
-  resultsEl.addEventListener("click", (event) => {
+  document.addEventListener("click", (event) => {
     const btn = event.target.closest(".audio-btn");
     if (!btn) return;
 
     const key = btn.getAttribute("data-symbol");
     const src = symbolToAudioPath(key);
-    console.log("▶️ Play symbol:", key, "->", src);
+
+    console.log("▶️ Clicked audio for:", key, "->", src);
 
     if (currentAudio) {
       currentAudio.pause();
