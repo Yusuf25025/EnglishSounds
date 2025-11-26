@@ -1,36 +1,4 @@
-// Wizari Phonetics 12 – full JS
-
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("🔥 Wizari Phonetics JS booted");
-
-  // ===== PHONEME DEFINITIONS =====
-
-  const PHONEMES = [
-    // voiceless consonants
-    { symbol: "/p/", key: "p", type: "voiceless" },
-    { symbol: "/t/", key: "t", type: "voiceless" },
-    { symbol: "/k/", key: "k", type: "voiceless" },
-    { symbol: "/θ/", key: "theta", type: "voiceless" },
-    { symbol: "/f/", key: "f", type: "voiceless" },
-    { symbol: "/s/", key: "s", type: "voiceless" },
-    { symbol: "/ʃ/", key: "sh", type: "voiceless" },
-    { symbol: "/tʃ/", key: "tch", type: "voiceless" },
-    { symbol: "/h/", key: "h", type: "voiceless" },
-
-    // voiced consonants
-    { symbol: "/b/", key: "b", type: "voiced" },
-    { symbol: "/d/", key: "d", type: "voiced" },
-    { symbol: "/g/", key: "g", type: "voiced" },
-    { symbol: "/ð/", key: "eth", type: "voiced" },
-    { symbol: "/v/", key: "v", type: "voiced" },
-    { symbol: "/z/", key: "z", type: "voiced" },
-    { symbol: "/ʒ/", key: "zh", type: "voiced" },
-    { symbol: "/dʒ/", key: "dge", type: "voiced" },
-    { symbol: "/l/", key: "l", type: "voiced" },
-    { symbol: "/r/", key: "r", type: "voiced" },
-    { symbol: "/m/", key: "m", type: "voiced" },
-    { symbol: "/n/", key: "n", type: "voiced" },
-    { symbol: "/ŋ/", key: "ng", type: "voiced" },
+{ symbol: "/ŋ/", key: "ng", type: "voiced" },
     { symbol: "/j/", key: "j", type: "voiced" },
     { symbol: "/w/", key: "w", type: "voiced" },
 
@@ -47,12 +15,16 @@ window.addEventListener("DOMContentLoaded", () => {
     { symbol: "/ʊ/", key: "u_short", type: "vowel" },
     { symbol: "/ʌ/", key: "uh", type: "vowel" },
     { symbol: "/ə/", key: "schwa", type: "vowel" }
+
+    // Diphthongs later with type: "diphthong"
   ];
 
-  let examplesBySymbol = {};
+  let examplesBySymbol = {}; // loaded from JSON
   let dataLoaded = false;
   let currentAudio = null;
   let activeFilter = "all";
+  const availableAudioKeys = new Set();
+  let audioAvailabilityReady = false;
 
   // ===== DOM =====
 
@@ -78,9 +50,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const before = word.slice(0, idx);
     const match = word.slice(idx, idx + p.length);
     const after = word.slice(idx + p.length);
-    return `${before}<span class="example-highlight">${match}</span>${after}`;
-  }
-
+@@ -87,106 +89,134 @@ window.addEventListener("DOMContentLoaded", () => {
   function normalizeQuery(q) {
     return q.trim().toLowerCase();
   }
@@ -104,6 +74,24 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function symbolToAudioPath(symbolKey) {
     return `audio/symbols/${symbolKey}.mp3`;
+  }
+
+  async function probeAudioAvailability() {
+    const checks = PHONEMES.map(async (ph) => {
+      const url = symbolToAudioPath(ph.key);
+      try {
+        const res = await fetch(url, { method: "HEAD" });
+        if (res.ok) {
+          availableAudioKeys.add(ph.key);
+        }
+      } catch (err) {
+        console.warn("Audio probe failed for", url, err);
+      }
+    });
+
+    await Promise.allSettled(checks);
+    audioAvailabilityReady = true;
+    renderPhonemes();
   }
 
   // ===== Rendering =====
@@ -149,6 +137,9 @@ window.addEventListener("DOMContentLoaded", () => {
             })
             .join("");
 
+          const hasAudio =
+            !audioAvailabilityReady || availableAudioKeys.has(ph.key);
+
           return `
             <article class="phoneme-card">
               <div class="card-header">
@@ -162,6 +153,17 @@ window.addEventListener("DOMContentLoaded", () => {
                   <span class="icon">🔊</span>
                   <span>Sound</span>
                 </button>
+                ${
+                  hasAudio
+                    ? `<button class="audio-btn" type="button" data-symbol="${ph.key}">
+                        <span class="icon">🔊</span>
+                        <span>Sound</span>
+                      </button>`
+                    : `<button class="audio-btn audio-btn-disabled" type="button" disabled>
+                        <span class="icon">🚫</span>
+                        <span>No audio yet</span>
+                      </button>`
+                }
               </div>
               <div>
                 <div class="examples-title">Examples</div>
@@ -187,30 +189,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const query = normalizeQuery(q);
     if (!query || !dataLoaded) {
       wordLookupEl.style.display = "none";
-      wordLookupEl.innerHTML = "";
-      return;
-    }
-
-    const matches = [];
-
-    visiblePhonemes.forEach((ph) => {
-      const examples = getExamplesFor(ph.symbol);
-      examples.forEach((ex) => {
-        if (ex.word.toLowerCase() === query) {
-          matches.push({ word: ex.word, symbol: ph.symbol });
-        }
-      });
-    });
-
-    if (matches.length === 0) {
-      wordLookupEl.style.display = "block";
-      wordLookupEl.innerHTML = `
-        <div>
-          <span class="badge">Word lookup</span>
-          <span>No exact Wizari word found for "<strong>${query}</strong>" yet, but related sounds are highlighted below.</span>
-        </div>
-      `;
-      return;
+@@ -217,81 +247,89 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     const uniqueSymbols = [...new Set(matches.map((m) => m.symbol))];
@@ -229,16 +208,19 @@ window.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // ===== GLOBAL CLICK HANDLER FOR AUDIO =====
+  // ===== Audio click handling (event delegation) =====
 
-  document.addEventListener("click", (event) => {
+  resultsEl.addEventListener("click", (event) => {
     const btn = event.target.closest(".audio-btn");
     if (!btn) return;
 
     const key = btn.getAttribute("data-symbol");
+    if (audioAvailabilityReady && !availableAudioKeys.has(key)) {
+      alert("No recording yet for this sound.");
+      return;
+    }
     const src = symbolToAudioPath(key);
-
-    console.log("▶️ Clicked audio for:", key, "->", src);
+    console.log("▶️ Play symbol:", key, "->", src);
 
     if (currentAudio) {
       currentAudio.pause();
@@ -247,6 +229,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const audio = new Audio(src);
     currentAudio = audio;
+    audio.addEventListener("error", () => {
+      alert("No recording yet for this sound. Add it at: " + src);
+    });
     audio
       .play()
       .catch((err) => {
@@ -291,5 +276,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // ===== Initial =====
   renderPhonemes();
+  probeAudioAvailability();
   loadExamples();
 });
